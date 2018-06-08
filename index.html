@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>지뢰찾기</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+  </style>
+  <script src="./jquery-1.12.3.min.js"></script>
+</head>
+
+<body>
+  <div id="mask">
+      <div id="form">
+          <div class="input_wrap">
+            <input type="radio" value="1" name="cho" id="b1" checked><label for='b1'>9*9 // 지뢰= 10</label>
+          </div>
+          <div class="input_wrap">
+            <input type="radio" value="2" name="cho" id="b2"><label for='b2'>16*16 // 지뢰= 40</label>
+          </div>
+          <div class="input_wrap">
+            <input type="radio" value="3" name="cho" id="b3"><label for='b3'>30*16 // 지뢰=99</label>
+          </div>
+
+          <div class="rel">
+            <button id="btn">시작</button>
+          </div>
+      </div>
+  </div>
+  <div id="wrap">
+    <ul id="plate">
+
+    </ul>
+  </div>
+<script src='./script.js'></script>
+</body>
+
+</html>
