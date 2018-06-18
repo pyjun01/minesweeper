@@ -6,6 +6,10 @@ $(window).resize(function () {//윈도우의 크기가 바껴도 중앙에 있�
     top: ($(window).height() - $('#wrap').height()) / 2,
     left: ($(window).width() - $('#wrap').width()) / 2
   });
+  $('.w').css({
+    top: parseInt($('#wrap').css('top'), 10)+$('#wrap').height(),
+    left: parseInt($('#wrap').css('left'), 10),
+  });
 });
 
 $(document).on('keydown',function (e) {// 처음 난이도 선택창에서 방향키로 선택을 바꿀수있고 엔터키로 시작할수있게
@@ -64,7 +68,7 @@ function makeplate(b) {// 난이도를 받아와서 크기생성함
     return false;
   }
   $('#mask').remove();
-  $('#wrap').show();
+  $('#wrap, .w').show();
 }
 function pluscode(x1,y1) {//생성하고 li크기조정
   x=x1;
@@ -112,6 +116,22 @@ function newya(c,y) {// css값넣고 생성
     top: ($(window).height() - $('#wrap').height()) / 2,
     left: ($(window).width() - $('#wrap').width()) / 2
   });
+  $('.w').css({
+    top: parseInt($('#wrap').css('top'), 10)+$('#wrap').height(),
+    left: parseInt($('#wrap').css('left'), 10),
+  });
+  switch($('.b:first-child>ul>li').length){
+    case 9:
+      $('.w>span').text(10);
+      break;
+    case 16:
+      $('.w>span').text(40);
+      break;
+    case 30:
+      $('.w>span').text(99);
+      break;
+
+  }
 }
 
 let first=true;// 처음인지 아닌지
@@ -170,15 +190,18 @@ $(document).on('mousedown','.c',function (e) {
     }
   }
 }).on('mouseup','.c',function (e) {
+  var mine_stack=mine_length;
   for (var i = 0; i < x; i++) {
     for (var j = 0; j < y; j++){
       if(right!=0&&right[i][j]===1){
+        mine_stack--;
         over_stack++;
       }else if(already[i][j]===1){
         over_stack++;
       }
     }
   }
+  $('.w>span').text(mine_stack);
   if(over_stack==x*y){
     endtime= new Date().getTime();
     $('body').prepend(`${(endtime - starttime)/1000}초. 클리어`);
