@@ -30,7 +30,7 @@ html,body{width: 100%;height: 100%;}
   #plate>li>ul>li{height: 100%;border:1px solid #fff;background: rgb(45, 136, 231);}
   ul{height: 100%;width:100%;}
   #stop{width: 100%;height:100%;position: absolute;z-index: 99999;}
-  .w{
+  .m,.t{
     position: absolute;
     width: 100px;
     height: 40px;

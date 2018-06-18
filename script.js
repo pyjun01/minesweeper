@@ -1,3 +1,10 @@
+var mt;
+function _MineTime() {
+  $('.t>span').text(starttime);
+  mt=setInterval(function () {
+    $('.t>span').text(++starttime);
+  },1000);
+}
  $('body').css({'cursor':'context-menu'}).on('dragstart selectstart contextmenu',function () {//선택못하게
    return false;
  });
@@ -6,9 +13,13 @@ $(window).resize(function () {//윈도우의 크기가 바껴도 중앙에 있�
     top: ($(window).height() - $('#wrap').height()) / 2,
     left: ($(window).width() - $('#wrap').width()) / 2
   });
-  $('.w').css({
-    top: parseInt($('#wrap').css('top'), 10)+$('#wrap').height(),
+  $('.m').css({
+    top: parseInt($('#wrap').css('top'), 10) + $('#wrap').height(),
     left: parseInt($('#wrap').css('left'), 10),
+  });
+  $('.t').css({
+    top: parseInt($('#wrap').css('top'), 10) + $('#wrap').height(),
+    left: parseInt($('#wrap').css('left'), 10) + $('.m').width(),
   });
 });
 
@@ -68,7 +79,7 @@ function makeplate(b) {// 난이도를 받아와서 크기생성함
     return false;
   }
   $('#mask').remove();
-  $('#wrap, .w').show();
+  $('#wrap, .m, .t').show();
 }
 function pluscode(x1,y1) {//생성하고 li크기조정
   x=x1;
@@ -116,19 +127,23 @@ function newya(c,y) {// css값넣고 생성
     top: ($(window).height() - $('#wrap').height()) / 2,
     left: ($(window).width() - $('#wrap').width()) / 2
   });
-  $('.w').css({
+  $('.m').css({
     top: parseInt($('#wrap').css('top'), 10)+$('#wrap').height(),
     left: parseInt($('#wrap').css('left'), 10),
   });
+  $('.t').css({
+    top: parseInt($('#wrap').css('top'), 10)+$('#wrap').height(),
+    left: parseInt($('#wrap').css('left'), 10)+$('.m').width(),
+  });
   switch($('.b:first-child>ul>li').length){
     case 9:
-      $('.w>span').text(10);
+      $('.m>span').text(10);
       break;
     case 16:
-      $('.w>span').text(40);
+      $('.m>span').text(40);
       break;
     case 30:
-      $('.w>span').text(99);
+      $('.m>span').text(99);
       break;
 
   }
@@ -149,7 +164,8 @@ $(document).on('click','.c',function (e) {//좌클릭 이벤트
   if(first){//처음
     first=false;//다음클릭부터는 처음이 아님
     mine(cx,cy);//지뢰 생성
-    starttime=new Date().getTime();
+    starttime=0;
+    _MineTime();
   }else{
 
   }
@@ -201,10 +217,10 @@ $(document).on('mousedown','.c',function (e) {
       }
     }
   }
-  $('.w>span').text(mine_stack);
+  $('.m>span').text(mine_stack);
   if(over_stack==x*y){
-    endtime= new Date().getTime();
-    $('body').prepend(`${(endtime - starttime)/1000}초. 클리어`);
+    clearInterval(mt);
+    $('body').prepend(`${starttime}초. 클리어`);
   }else{
     over_stack=0;
   }
@@ -231,8 +247,8 @@ function click(clx,cly,cli) {
     case true:
       cli.css({background:'black'});
       if(!over){
-        endtime= new Date().getTime();
-        $('body').prepend(`${(endtime - starttime)/1000}초. 까비`);
+        clearInterval(mt);
+        $('body').prepend(`${starttime}초. 까비`);
         over=true;
         right=0;
         $('body').prepend(`<div id='stop'></div>`);
