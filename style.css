@@ -1,5 +1,5 @@
 * { margin: 0; padding: 0; box-sizing: border-box;user-select: none;}
-html,body{width: 100%;height: 100%;background: #000;}
+html,body{width: 100%;height: 100%;}
   #mask{
       width:100%;
       height:100%;
@@ -27,6 +27,7 @@ html,body{width: 100%;height: 100%;background: #000;}
     background: #fff;
     position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);
   }
+  #wrap>.mask{display: none;position: absolute;width: 100%;height: 100%;left: 0;top: 0;}
   .c{font-weight: bold;}
   li{list-style: none;float:left;}
   #plate>li{ width:100%;height: 30px;}
